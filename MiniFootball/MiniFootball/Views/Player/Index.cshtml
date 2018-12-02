@@ -1,0 +1,75 @@
+﻿@using MiniFootball.Models
+@{
+    ViewBag.Title = "Player";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Player player = Session["LoggedPlayer"] as Player;
+}
+
+@if (player != null)
+{
+    <div class="container">
+        <h2>Profil</h2>
+
+        <div>
+            <h4>Oyunçu</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Ad
+                </dt>
+
+                <dd>
+                    @player.Name
+                </dd>
+
+                <dt>
+                    Soyad
+                </dt>
+
+                <dd>
+                    @player.Lastname
+                </dd>
+
+                <dt>
+                    Email
+                </dt>
+
+                <dd>
+                    @player.Email
+                </dd>
+
+                <dt>
+                    Şifrə
+                </dt>
+
+                <dd>
+                    @player.Password
+                </dd>
+                <dt>Komanda</dt>
+                <dd>
+                    @if (player.Team_Player.FirstOrDefault(tp => tp.Submit == 1) != null)
+                    {
+                        @player.Team_Player.FirstOrDefault(tp => tp.Submit == 1).Team.Name
+
+                    }
+                    else
+                    {
+                        <span>Komandasiz</span>
+                    }
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Dəyiş", "Edit") |
+            @Html.ActionLink("Geriyə", "Index", "Home")
+        </p>
+    </div>
+}
+else {
+<div class="alert alert-warning">İstifadəçi daxil olmayib</div>
+}
+
+
+

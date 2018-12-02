@@ -1,0 +1,61 @@
+﻿@using MiniFootball.Models
+
+@using MiniFootball.Areas.Admin.ViewModels;
+
+@model TeamDetailViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/Partial.cshtml";
+}
+
+<h2>Detallar</h2>
+
+<div>
+    <h4>Komanda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <span>Komanda adi</span>
+        </dt>
+
+        <dd>
+            <span>@Model.Team.Name</span>
+        </dd>
+
+        <dt>
+            <span>Şəhər</span>
+        </dt>
+
+        <dd>
+            <span>@Model.Team.City</span>
+        </dd>
+
+        <dt>
+            <span>Logo</span>
+        </dt>
+
+        <dd>
+            <span>@Model.Team.Logo</span>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = @Model.Team.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<div>
+    <h3 class="text-center">Komandanin oyunçulari</h3>
+    <hr />
+        @foreach (var player in Model.PlayerList)
+    {
+            <div class="dropdown">
+                <button class="dropbtn">@player.Name @player.Lastname</button>
+                <div class="dropdown-content">
+                    <a href="@Url.Action("Details","Players",new { @id = player.id})">Oyunçuya bax</a>
+                    <a href="@Url.Action("RemovePlayer","Teams",new { @id = player.id})">Komandadan kənarlaşdir</a>
+                </div>
+            </div>
+}
+</div>

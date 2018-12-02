@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MiniFootball.Models.Game>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Partial.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Home Team
+        </th>
+        <th>
+            Away Team
+        </th>
+        <th>
+            Time
+        </th>
+        <th>
+            Home Score
+        </th>
+        <th>
+            Away Score
+        </th>
+        <th>
+            Winner Team
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Team.Name
+              
+            </td>
+            <td>
+                @item.Team1.Name
+            </td>
+            <td>
+                @item.Time
+            </td>
+            <td>
+                @if (item.HomeScore == null) { <span>?</span> } else {<span>@item.HomeScore</span> } 
+            <td>
+                 @if (item.AwayScore == null) { <span>?</span> } else {<span>@item.AwayScore</span> }
+            </td>
+            <td>
+                 @if (item.WinnerTeamId == null) { <span>?</span> } else {<span>@item.WinnerTeamId</span> }
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

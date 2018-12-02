@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MiniFootball.Models.Game>
+@{
+    ViewBag.Title = "ShowOldMatches";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Keçmiş oyunlar</h2>
+<hr />
+<ul class="list-group">
+    @foreach (var game in Model)
+    {
+    <li class="list-group-item">
+        <div style="display:inline-block"> @game.Team.Name</div>
+        <input disabled class="form-control homeScore scoreInput" value="@game.HomeScore" name="HomeScore">
+        <input disabled class="form-control awayScore scoreInput" value="@game.AwayScore" name="AwayScore">
+        <div style="display:inline-block">@game.Team1.Name</div>
+
+        <div style="display:inline-block;float:right">@game.Time</div>
+    </li>
+
+    }
+
+</ul>
+
+<style>
+    .scoreInput {
+        width: 44px;
+        display: inline-block;
+        background: #474242;
+        color: black;
+        height: 40px;
+        padding: 10px 16px;
+        margin: 10px;
+    }
+</style>
+

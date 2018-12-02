@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Mini_FootballModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Mini_FootballEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admin_settings" EntityType="Mini_FootballModel.Admin_settings" />
+    <EntitySet Name="Games" EntityType="Mini_FootballModel.Game" />
+    <EntitySet Name="Players" EntityType="Mini_FootballModel.Player" />
+    <EntitySet Name="sysdiagrams" EntityType="Mini_FootballModel.sysdiagram" />
+    <EntitySet Name="Team_Player" EntityType="Mini_FootballModel.Team_Player" />
+    <EntitySet Name="Teams" EntityType="Mini_FootballModel.Team" />
+    <AssociationSet Name="FK_Games_Teams" Association="Mini_FootballModel.FK_Games_Teams">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="Game" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Games_Teams1" Association="Mini_FootballModel.FK_Games_Teams1">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="Game" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_Player_Players" Association="Mini_FootballModel.FK_Team_Player_Players">
+      <End Role="Player" EntitySet="Players" />
+      <End Role="Team_Player" EntitySet="Team_Player" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_Player_Teams" Association="Mini_FootballModel.FK_Team_Player_Teams">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="Team_Player" EntitySet="Team_Player" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Admin_settings">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Home_team_id" Type="Int32" Nullable="false" />
+    <Property Name="Away_team_id" Type="Int32" Nullable="false" />
+    <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HomeScore" Type="Int32" />
+    <Property Name="AwayScore" Type="Int32" />
+    <Property Name="WinnerTeamId" Type="Int32" />
+    <NavigationProperty Name="Team" Relationship="Mini_FootballModel.FK_Games_Teams" FromRole="Game" ToRole="Team" />
+    <NavigationProperty Name="Team1" Relationship="Mini_FootballModel.FK_Games_Teams1" FromRole="Game" ToRole="Team" />
+  </EntityType>
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Team_Player" Relationship="Mini_FootballModel.FK_Team_Player_Players" FromRole="Player" ToRole="Team_Player" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Team_Player">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Team_id" Type="Int32" Nullable="false" />
+    <Property Name="Player_id" Type="Int32" Nullable="false" />
+    <Property Name="Submit" Type="Byte" />
+    <NavigationProperty Name="Player" Relationship="Mini_FootballModel.FK_Team_Player_Players" FromRole="Team_Player" ToRole="Player" />
+    <NavigationProperty Name="Team" Relationship="Mini_FootballModel.FK_Team_Player_Teams" FromRole="Team_Player" ToRole="Team" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Logo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Games" Relationship="Mini_FootballModel.FK_Games_Teams" FromRole="Team" ToRole="Game" />
+    <NavigationProperty Name="Games1" Relationship="Mini_FootballModel.FK_Games_Teams1" FromRole="Team" ToRole="Game" />
+    <NavigationProperty Name="Team_Player" Relationship="Mini_FootballModel.FK_Team_Player_Teams" FromRole="Team" ToRole="Team_Player" />
+  </EntityType>
+  <Association Name="FK_Games_Teams">
+    <End Type="Mini_FootballModel.Team" Role="Team" Multiplicity="1" />
+    <End Type="Mini_FootballModel.Game" Role="Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Game">
+        <PropertyRef Name="Home_team_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Games_Teams1">
+    <End Type="Mini_FootballModel.Team" Role="Team" Multiplicity="1" />
+    <End Type="Mini_FootballModel.Game" Role="Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Game">
+        <PropertyRef Name="Away_team_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_Player_Players">
+    <End Type="Mini_FootballModel.Player" Role="Player" Multiplicity="1" />
+    <End Type="Mini_FootballModel.Team_Player" Role="Team_Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Team_Player">
+        <PropertyRef Name="Player_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_Player_Teams">
+    <End Type="Mini_FootballModel.Team" Role="Team" Multiplicity="1" />
+    <End Type="Mini_FootballModel.Team_Player" Role="Team_Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Team_Player">
+        <PropertyRef Name="Team_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MiniFootball.Models.Game>
+@{
+    ViewBag.Title = "ShowNextMatches";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int a = 0;
+}
+
+<h2 class="text-center">Gələcək oyunlar</h2>
+<hr />
+<ul class="list-group">
+    @foreach (var game in Model)
+    {
+        a++;
+
+        <li class="list-group-item">
+            <div style="display:inline-block"> @game.Team.Name</div>
+            <input disabled class="form-control homeScore scoreInput" value="?" name="HomeScore">
+            <input disabled class="form-control awayScore scoreInput" value="?" name="AwayScore">
+            <div style="display:inline-block">@game.Team1.Name</div>
+
+            <div style="display:inline-block;float:right">@game.Time</div>
+        </li>
+
+    }
+
+</ul>
+
+@if (a == 0)
+{
+<div class="text-center alert alert-danger">
+   Növbəti oyun proqramlari daxil edilməyib
+</div>
+}
+
+<style>
+    .scoreInput {
+        width: 44px;
+        display: inline-block;
+        background: #474242;
+        color: black;
+        height: 40px;
+        padding: 10px 16px;
+        margin: 10px;
+    }
+</style>
+

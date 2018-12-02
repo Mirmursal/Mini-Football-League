@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MiniFootball.Models.Game>
+@{
+    ViewBag.Title = "AddResult";
+    Layout = "~/Areas/Admin/Views/Shared/Partial.cshtml";
+}
+
+<h2>Nəticələri əlavə et</h2>
+<hr />
+
+<ul class="list-group">
+  @{ 
+      int a = 0;
+  }
+    @foreach (var game in Model)
+    {
+        a++;
+
+        <li class="list-group-item">
+            <div class="d-inline"> @game.Team.Name</div>
+            <input class="form-control homeScore scoreInput" name="HomeScore" />
+            <input class="form-control awayScore scoreInput" name="AwayScore" />
+            <div class="d-inline">@game.Team1.Name</div>
+            <a href="#" data-game-id="@game.id" class="btn btn-danger ml-4 addResult">Yadda saxla</a>
+        </li>
+    }
+</ul>
+@if(a == 0)
+{
+    <span class="alert alert-danger mt-3">Oynanilmamiş oyun yoxdur</span>
+}
+
+<style>
+    .scoreInput {
+        width: 44px;
+        display: inline-block;
+        background: #474242;
+        color: white;
+        height: 40px;
+        padding: 10px 16px;
+        margin: 10px;
+    }
+</style>

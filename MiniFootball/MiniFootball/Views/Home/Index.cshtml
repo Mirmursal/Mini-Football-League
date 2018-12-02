@@ -1,0 +1,52 @@
+﻿@using MiniFootball.Models;
+
+@using MiniFootball.ViewModels;
+
+@model HomeIndexViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2 class="text-center title">Turnir Cədvəli</h2>
+
+<div class="liga_table_wrapper">
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col" style="width:20px;">Siralama</th>
+                <th scope="col">Komanda</th>
+                <th scope="col">Oyun sayi</th>
+                <th scope="col">Qələbə</th>
+                <th scope="col">Məğlubiyyət</th>
+                <th scope="col">Heç-heçə</th>
+                <th scope="col">Xal</th>
+                <th scope="col">Keçmiş oyunlar</th>
+                <th scope="col">Növbəti oyunlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int i = 0;}
+            @foreach (Standing st in Model.Standings)
+    {
+                i++;
+            <tr>
+
+                <th scope="row">@i</th>
+                <td>@st.TeamName</td>
+                <td>@st.GameCount</td>
+                <td>@st.Win</td>
+                <td>@st.Loss</td>
+                <td>@st.Draw</td>
+                <td>@st.Point</td>
+                <td>
+                    @Html.ActionLink("Oyunlara bax", "ShowOldMatches", new { id = st.id })
+                </td>
+                <td>
+                    @Html.ActionLink("Oyunlara bax", "ShowNextMatches", new { id = st.id })
+                </td>
+            </tr>
+}
+
+        </tbody>
+    </table>
+</div>

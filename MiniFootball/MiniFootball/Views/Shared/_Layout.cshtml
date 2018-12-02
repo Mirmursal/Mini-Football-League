@@ -1,0 +1,101 @@
+﻿@using MiniFootball.Models;
+@{
+    Player user = Session["LoggedPlayer"] as Player;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="~/Public/Css/style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <section id="navbar">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">
+                                <i>Mini Futbol Liqasi</i>
+                            </a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a href="@Url.Action("Index","Home")">Liga Cədvəli</a>
+                            </li>
+                          @if(user != null)
+                          {
+                                if (user.Team_Player.FirstOrDefault(tp => tp.Submit == 1) != null)
+                            {
+                                <li>
+                                   <a href="@Url.Action("TeamInfo" , "Player")">Komanda Məlumatlari</a>
+                               </li>
+                            }
+                            else
+                            {
+                             <li>
+                                 <a href="@Url.Action("Offer","Player")">Komanda Seç</a>
+                             </li>
+                           }
+                          }
+
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            @{
+                                if (Session["LoggedPlayer"] != null)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index","Player")">@user.Name @user.Lastname</a>
+                                    </li>
+                                }
+                            }
+                            @{
+                                if (Session["LoggedPlayer"] != null)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("LogOut", "Login")">
+                                            <span class="glyphicon glyphicon-log-in"></span> Çixiş
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Register", "Login")">
+                                            <span class="glyphicon glyphicon-user"></span> Qeydiyyatdan Keç
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Login")">
+                                            <span class="glyphicon glyphicon-log-in"></span> Daxil ol
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </nav>
+            </section>
+        </div>
+        <div class="mainWrapper">
+            @RenderBody()
+        </div>
+        <div class="row" style="clear:both">
+            <div class="footer">
+                <h5></h5>
+            </div>
+        </div>
+    </div>
+    <script src="~/Public/Js/main.js"></script>
+</body>
+</html>

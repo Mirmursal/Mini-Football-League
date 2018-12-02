@@ -1,0 +1,35 @@
+﻿@using MiniFootball.Models;
+
+@using MiniFootball.ViewModels;
+
+@model PlayerTeaminfoViewModel
+@{
+    ViewBag.Title = "TeamInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h2 class="text-center">Komanda Məlumatlari</h2>
+    <hr />
+
+    <div class="team-Info">
+        <dt>Komanda Adi</dt>
+        <dd>@Model.Team.Name</dd>
+        <dt>Şəhər</dt>
+        <dd>@Model.Team.City</dd>
+        <dt>Logo</dt>
+        <dd>@Model.Team.Logo</dd>
+    </div>
+    <div class="players">
+        <h2 class="text-center">Komanda üzvləri</h2>
+        <hr />
+
+        @foreach (var player in Model.Playerlist)
+        {
+            <a class="btn btn-danger" >@player.Name  @player.Lastname</a>
+        }
+    </div>
+
+
+</div>
+
+

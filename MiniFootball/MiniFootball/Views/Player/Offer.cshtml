@@ -1,0 +1,48 @@
+﻿@using MiniFootball.Models;
+@using MiniFootball.ViewModels;
+
+@model HomePlayerViewModel
+@{
+    ViewBag.Title = "Komanda Seç";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Player</title>
+</head>
+<body>
+    <div class="center-wrapper">
+        @if (Model.Offer == null)
+        {
+            <ul class="list-group offerTeams">
+            @foreach (var item in Model.TeamList)
+            {
+             <li class="list-group-item">
+                 @item.Name
+       
+                 <a href="#" data-team-id="@item.id" class="pull-right getOffer">Təklif Göndər</a>
+             </li>
+            }
+          
+        </ul>
+        }
+        else {
+            <div class="alert alert-warning">Siz daha əvvəl @Model.Offer.Team.Name komandasina istək göndərmisiniz</div>
+        }
+    </div>
+
+
+    <style>
+        .center-wrapper{
+            display:block;
+            width:60%;
+            margin:auto;
+        }
+    </style>
+</body>
+</html>
+
+

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<MiniFootball.Models.Player>
+@{
+    ViewBag.Title = "AddPlayer";
+    Layout = "~/Areas/Admin/Views/Shared/Partial.cshtml";
+}
+<h2>@ViewBag.CurTeam</h2>
+
+<div >
+    <hr />
+    @if(Model.Count() == 0)
+    {
+        <div class="alert alert-warning">Bütün oyunçular komandalara cəlb olunub.</div>
+    }
+    <ul class="list-group">
+        @foreach (var item in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="@Url.Action("Details", "Players", new { id = item.id })">@item.Name @item.Lastname</a>
+      
+           <a href="#" data-player_id="@item.id" data-team_id="@ViewBag.TeamId" class="btn btn-danger add_player">Komandaya əlavə et</a>
+        </li>
+    }
+    </ul>
+</div>
+
+
